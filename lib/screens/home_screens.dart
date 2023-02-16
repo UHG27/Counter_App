@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Nuero de Taps', 
+              'Nuero de Taps: ', 
               style: TextStyle(fontSize: 30),
             ),
             Text(
