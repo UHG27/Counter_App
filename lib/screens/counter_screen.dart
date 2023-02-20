@@ -9,6 +9,22 @@ State<CounterScreen> createState() => _CounterScreenState();
 
 class _CounterScreenState extends State<CounterScreen>{
 int contador = 0;
+
+void incrementar(){
+  contador++;
+  setState(() {});
+}
+
+void decrementar(){
+  contador--;
+  setState(() {});
+}
+
+void reiniciar(){
+  contador = 0;
+  setState(() {});
+}
+
   @override
   Widget build(BuildContext context) {
     const TextStyle estiloTexto = TextStyle(
@@ -37,32 +53,47 @@ int contador = 0;
           ],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-           
-            FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 0, 255, 229),
-              foregroundColor: const Color.fromARGB(654, 65, 335, 21),
-              onPressed: () => setState(() => contador--),
-             
-              child: const Icon(Icons.exposure_minus_1),
-            ),
-            
-            FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 0, 255, 229),
-              foregroundColor: const Color.fromARGB(654, 65, 335, 21),
-              onPressed: () => setState(() => contador = 0),
-              child: const Icon(Icons.restart_alt),
-            ),
-           
-            FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 0, 255, 229),
-              foregroundColor: const Color.fromARGB(654, 65, 335, 21),
-              onPressed: () => setState(() => contador++),
-              child: const Icon(Icons.exposure_plus_1),
-            ),
-          ],
-        ));// Scaffold
+        floatingActionButton: CoustomFloatingActionButton(decrease: decrementar, increase: incrementar, reset: reiniciar,));// Scaffold
    }
   }
+
+class CoustomFloatingActionButton extends StatelessWidget {
+  final Function increase;
+  final Function decrease;
+  final Function reset;
+  
+  const CoustomFloatingActionButton({
+    Key? key, required this.increase, required this.decrease, required this.reset,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+       
+        FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 0, 255, 229),
+          foregroundColor: const Color.fromARGB(654, 65, 335, 21),
+          onPressed: () => decrease(),
+         
+          child: const Icon(Icons.exposure_minus_1),
+        ),
+        
+        FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 0, 255, 229),
+          foregroundColor: const Color.fromARGB(654, 65, 335, 21),
+          onPressed: () => reset(),
+          child: const Icon(Icons.restart_alt),
+        ),
+       
+        FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 0, 255, 229),
+          foregroundColor: const Color.fromARGB(654, 65, 335, 21),
+          onPressed: () => increase(),
+          child: const Icon(Icons.exposure_plus_1),
+        ),
+      ],
+    );
+  }
+}
